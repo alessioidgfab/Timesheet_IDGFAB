@@ -1,0 +1,154 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:c="sap.ui.commons" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:u="sap.ui.unified"
+	xmlns:h="http://www.w3.org/1999/xhtml" xmlns:app="http://www.w3.org/1999/xhtml">
+    <Dialog title="Popup List" stretch="false"  >
+        <content>
+            <Table
+                id="selectListTable"
+                items="{getTimesheetList>/selectList}"
+                includeItemInSelection="false"
+                mode="SingleSelect"               
+                class="sapUiSizeCompact"                             
+            >              
+                <columns>
+                    <Column hAlign="Center">
+                        <Text text="{i18n>workPackage}" />
+                    </Column>
+                    <!-- <Column
+                        hAlign="Center"
+                      width="20rem"
+                    >  -->
+                        <!-- <Text text="{i18n>workLocDescription} \n {i18n>office}"/> -->
+                         <!-- <Text text="{i18n>workLocDescription}" />
+                    </Column> -->
+                    <Column
+                        hAlign="Center"
+                       
+                    >
+                        <Text text="{i18n>overtime}" />
+                    </Column>
+                    <Column
+                        hAlign="Center"
+                    
+                    >
+                        <Text text="{i18n>hoursWorked}" />
+                    </Column>
+                    <Column
+                        hAlign="Center"
+                      
+                    >
+                        <Text text="{i18n>nb}" />
+                    </Column>
+                    <!-- <Column
+                        hAlign="Center"
+                       
+                    >
+                        <Text text="{i18n>notes}" />
+                    </Column> -->
+                    <!-- <Column
+                        hAlign="Center"
+                      
+                    >
+                        <Text text="{i18n>expense}" />
+                    </Column> -->
+                    <!-- <Column
+                        hAlign="Center"
+                       
+                    >
+                        <Text text="{i18n>status}" />
+                    </Column>
+                    <Column
+                        hAlign="Center"
+                        
+                    /> -->
+                </columns>
+                <items>
+                    <ColumnListItem
+                    id="selectList"
+                        type="Active"
+                        selected="{getTimesheetList>selected}"
+                    >
+                        <cells>
+                            <VBox>
+                                <ObjectStatus
+                                    text="{getTimesheetList>CODICE_COMMESSA}"                                   
+                                />
+                                <!-- <ObjectStatus
+                                    text="{getTimesheetList>CODICE_COMMESSA}"
+                                  
+                                /> -->
+                            </VBox>
+                              <!-- state="{= ${tableModel>statusId} === '1' ? 'Error' : 'None'}" -->
+                            <!-- <VBox>
+                                <ObjectStatus
+                                    text="{getTimesheetList>workLocDescription}"
+                                    state="{= ${getTimesheetList>statusId} === '1' ? 'Error' : 'None'}"
+                                />
+                            </VBox> -->
+                            <ObjectStatus id="testId"
+                                text="{=${getTimesheetList>OVERTIME} > 0 ? ${getTimesheetList>OVERTIME}  : '0' }"/>
+                            <ObjectStatus
+                                text="{getTimesheetList>ORE_LAVORATE}"                               
+                            />
+                            <CheckBox
+                                selected="{= ${getTimesheetList>FATTURAZIONE_FLAG} ? true : false}"
+                                editable="false"
+                            />
+                            <!-- <core:Icon
+                                src="sap-icon://notes"
+                                press="onPressNoteIcon"
+                                size="26px"
+                                tooltip="{getTimesheetList>NOTES}"
+                                visible="{= ${getTimesheetList>NOTES} ? true : false}"
+                            /> -->
+                            <!-- <core:Icon
+                                src="sap-icon://money-bills"
+                                press="onPressExpense"
+                                color="{=${getTimesheetList>expenses}.length > 0 ? 'green' : '#000000'}"
+                                size="26px"
+                                tooltip="{= !${getTimesheetList>expenses}.length ? ${i18n>speseAssenti} : ${i18n>spesePresenti}}"
+                            >
+                                <core:layoutData>
+                                    <FlexItemData growFactor="1" />
+                                </core:layoutData>
+                            </core:Icon> -->
+                            <!-- <ObjectStatus
+                                text="{tableModel>statusId}"
+                                state="{= ${tableModel>statusId} === '1' ? 'Error' : 'None'}"
+                            /> -->
+                                <!-- <ObjectStatus
+                                text="{path:'getTimesheetList>statusId', formatter:'formatter.stato'}"
+                                state="{= ${getTimesheetList>statusId} === 'Aperto' ? 'Success' : ${getTimesheetList>statusId} === 'Chiuso' ?  'Warning' : 'Error'}"
+                                icon="{= ${getTimesheetList>statusId} === 'Aperto' ? 'sap-icon://sys-enter-2' : ${getTimesheetList>statusId} === 'Chiuso' ? 'sap-icon://alert' : 'sap-icon://error'}"
+                            />
+                                  <Button type="Transparent"
+                                text="Edit"
+                                press="onPressTs"
+                                ariaDescribedBy="editButtonLabel"
+                                icon="sap-icon://edit" />
+                            <core:Icon
+                                src="{= ${getTimesheetList>statusId} === '10' ? 'sap-icon://unlocked' : (${getTimesheetList>statusId} === '30' &amp;&amp; ${userModel>/workingInAdmin}) ? 'sap-icon://locked' : ${tableModel>statusId} === '40' ? 'sap-icon://decline' : ''}"
+                                press="onIconPress"
+                                color="{= ${getTimesheetList>statusId} === '40' ? 'red' : 'green'}"
+                                size="26px"
+                                tooltip="{= ${getTimesheetList>statusId} === '10' ? ${i18n>release} : ${getTimesheetList>statusId} === '30' ? ${i18n>unapprove} : ${tableModel>statusId} === '40' ? ${tableModel>rejectionReason} : ''}"
+                                visible="{=
+								(${getTimesheetList>statusId} === '1' &amp;&amp; ((${tableModel>absenceCode} &amp;&amp; ${periodsModel>/absence}) || !${tableModel>absenceCode} &amp;&amp; ${periodsModel>/activity})) ||
+								(${getTimesheetList>statusId} === '3' &amp;&amp; ${getTimesheetList>/workingInAdmin}) ||
+								(${getTimesheetList>statusId} === '2') ? true : false}"
+                            > -->
+                                <!-- <core:layoutData>
+                                    <FlexItemData growFactor="1" />
+                                </core:layoutData>
+                            </core:Icon> -->
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+        <buttons>
+			<Button text="{i18n>confirm}" press="onSelectData" type="Accept" width="8rem"/>
+			<Button text="{i18n>cancel}" press="onCancelData" type="Reject" width="8rem"/>
+		</buttons>
+    </Dialog>
+</core:FragmentDefinition>

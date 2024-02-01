@@ -1,0 +1,373 @@
+<mvc:View
+    controllerName="timesheetproject2.controller.Detail"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:semantic="sap.f.semantic"
+    xmlns:u="sap.ui.unified"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:footerbar="sap.ushell.ui.footerbar"
+    xmlns:core="sap.ui.core"
+>
+    <Page class="homePage sapUiSizeCozy">
+        <customHeader>
+            <core:Fragment
+                fragmentName="timesheetproject2.view.fragment.Header"
+                type="XML"
+            />
+        </customHeader>
+        <f:SimpleForm
+            maxContainerCols="2"
+            editable="true"
+            layout="ResponsiveGridLayout"
+            labelSpanL="3"
+            labelSpanM="3"
+            emptySpanL="3"
+            emptySpanM="3"
+            columnsL="1"
+            columnsM="1"
+        >
+            <Label
+                text="{i18n>date}"
+                required="{= ${enableModel>/entity} !== 'view' ? true : false}"
+            />
+            <!-- <DatePicker
+                value="{dataSel>/dataSelez}"
+                enabled="{= ${enableModel>/entity} === 'view' ? false : true}"
+                change="onChangeDate"
+            /> -->
+              <DatePicker
+                value="{dataSel>/dataSelez}"
+                enabled="false"
+                change="onChangeDate"
+            />
+            <Label
+                text="{i18n>activity}"
+                required="{= ${enableModel>/entity} !== 'view' ? true : false}"
+            />
+            <!-- <Input
+                value="{detailModel>/activity}"
+                showSuggestion="true"
+                showValueHelp="true"
+                valueHelpRequest="handleValueHelp"
+                suggestionItems="{tendineModel>/workPackage}"
+                enabled="{= ${enableModel>/entity} === 'view' ? false : true}"
+            >
+                <suggestionItems>
+                    <core:Item text="{tendineModel>workPackageName}" />
+                </suggestionItems>
+            </Input> -->
+            <ActionSelect
+            id="idWbsActionSelect"
+                value="{dataSel>/rowSelez/WBS}"
+                items="{tendineModel>/activities}"
+              
+                required="true"
+            >
+                <core:Item
+                    key="{tendineModel>workPackage}"
+                    text="{tendineModel>workPackageName}"
+                />
+            </ActionSelect>
+            <!-- <Input
+                value="{detailModel>/wbsDescription}"
+                enabled="false"
+            /> -->
+            
+               <Label text="{i18n>notBillable}" />
+            <CheckBox id="checkBox"
+                selected="{= ${dataSel>/rowSelez/faturazioneFlag} === false ? false : ${dataSel>/rowSelez/faturazioneFlag} ===  true ?  true : false}"
+           
+            />
+            <Label
+                text="{i18n>purchaseOrder}"
+                visible="{= ${detailModel>/purchaseOrder} ? true : false}"
+            />
+            <Input
+                value="{= parseInt(${detailModel>/purchaseOrderItem}) ? parseInt(${detailModel>/purchaseOrder}) + ' / ' + parseInt(${detailModel>/purchaseOrderItem}) : parseInt(${detailModel>/purchaseOrder}) ? parseInt(${detailModel>/purchaseOrder}) : ''}"
+   
+                visible="{= ${detailModel>/purchaseOrder} ? true : false}"
+            />
+            <Label
+                text="{i18n>hoursWorked}"
+                
+            />
+              <Input
+              id="inputNumber"
+                value=""
+                type="Number"
+                visible="true"
+                liveChange="inputChange"
+           
+                 required="true"
+            />
+            <!-- <Input value="{detailModel>/workHours}" type="Number" enabled="{= ${enableModel>/entity} === 'view' ? false : true}"/> -->
+            <!-- <Select
+                selectedKey="{detailModel>/workMinutes}"
+                enabled="{= ${enableModel>/entity} === 'view' ? false : true}"
+            > -->
+            <!-- <Select
+                 selectedKey="{dataSel>/rowSelez/workHours}"
+                enabled="{= ${enableModel>/entity} === 'view' ? false : true}"
+            >
+                  <core:Item
+                    key="00"
+                    text="00"
+                />
+                <core:Item
+                    key="1"
+                    text="1"
+                />
+                <core:Item
+                    key="2"
+                    text="2"
+                />
+                <core:Item
+                    key="3"
+                    text="3"
+                />
+                <core:Item
+                    key="4"
+                    text="4"
+                />
+                <core:Item
+                    key="5"
+                    text="5"
+                />
+                <core:Item
+                    key="6"
+                    text="6"
+                />
+                <core:Item
+                    key="7"
+                    text="7"
+                />
+                <core:Item
+                    key="8"
+                    text="8"
+                />
+            </Select> -->
+     
+            <!-- <Select
+                enabled="{= ${enableModel>/entity} === 'view' ? false : true}"
+            >
+                <core:Item
+                    key="00"
+                    text="00"
+                />
+                <core:Item
+                    key="30"
+                    text="30"
+                />
+            </Select> -->
+            <Label
+                text="{i18n>overtime}"
+                required="{= ${enableModel>/overtimeRequired}}"
+            />
+            <!-- <Select
+                selectedKey="{detailModel>/overtimeCategory}"
+                enabled="{= ${enableModel>/entity} === 'view' ? false : true}"
+            > -->
+               <Select
+               id="SelectNumber"
+                selectedKey="{dataSel>/rowSelez/overTime}"
+        
+            >
+                <!-- <core:Item key="{tendineModel>TimeSheetOvertimeCategory}"
+                text="{tendineModel>TimeSheetOvertimeCategoryText}"/>
+				 -->
+                <core:Item
+                    key="0"
+                    text="00.00"
+                />
+                <core:Item
+                key="0.5"
+                text="00.30"
+            />
+                <core:Item
+                    key="1"
+                    text="1.00"
+                />
+                <core:Item
+                    key="2"
+                    text="2.00"
+                />
+                <core:Item
+                key="1.5"
+                text="1.30"
+            />
+            <core:Item
+            key="2.5"
+            text="2.30"
+        />
+            </Select>
+            <Label
+                text="{i18n>absenceType}*"
+                required="{= ${enableModel>/entity} !== 'view' ? true : false}"
+                visible="{= ${detailModel>/absenceCode} || ${enableModel>/isAbsenceWbs} ? true : false}"
+            />
+            <Select
+                forceSelection="false"
+                items="{tendineModel>/absenceTypes}"
+                selectedKey="{detailModel>/absenceCode}"
+                visible="{= ${detailModel>/absenceCode} || ${enableModel>/isAbsenceWbs} ? true : false}"
+            >
+                <core:Item
+                    key="{tendineModel>Assenza}"
+                    text="{tendineModel>SAP_Description}"
+                />
+            </Select>
+            <Label
+                text="{i18n>workLocDescription}"
+                required="{= ${enableModel>/entity} !== 'view' ? true : false}"
+                visible="{= !${enableModel>/isAbsenceWbs}}"
+            />
+            <!-- <Select
+                id="location"
+                forceSelection="false"
+                items="{tendineModel>/workLocations}"
+                selectedKey="{tendineModel>/workLocations}"
+                enabled="{= ${enableModel>/entity} === 'view' ? false : true}"
+                visible="{= !${detailModel>/absenceCode} &amp;&amp; !${enableModel>/isAbsenceWbs} ? true : false}"
+            >
+                <core:Item
+                    key="{tendineModel>workLocations}"
+                    text="{tendineModel>workLocations}"
+                />
+            </Select> -->
+            <Label
+                text="{i18n>workLocDescription}"
+                required="{= ${enableModel>/entity} !== 'view' ? true : false}"
+                visible="{= !${enableModel>/isAbsenceWbs}}"
+            />
+            <Select
+                id="location"
+                forceSelection="false"
+                items="{workPlace>/}"
+                selectedKey="{= ${dataSel>/rowSelez/workLocDescription} === 'Casa' ? 1 : ${dataSel>/rowSelez/workLocDescription} === 'In sede' ?  2 : ${dataSel>/rowSelez/workLocDescription} === 'In sede cliente' ? 3 : '' }"
+
+                visible="{= !${detailModel>/absenceCode} &amp;&amp; !${enableModel>/isAbsenceWbs} ? true : false}"
+                required="true"
+            >
+                <core:Item
+                    key="{workPlace>ID}"
+                    text="{workPlace>Luogo}"
+                />
+            </Select>
+            <!-- <Label text="{i18n>workLocDescription}" />
+            <Select
+                id="location"
+                items="{path: '/Luogo_Lavoro'}"
+                forceSelection="false"
+            >
+                <items>
+                    <core:Item
+                        key="{ID}"
+                        text="{Luogo}"
+                    />
+                </items>
+            </Select> -->
+            <!-- <Label text="{i18n>officeDescription}" visible="{= ${detailModel>/workLocation} === '2'}"
+				required="{= ${enableModel>/entity} !== 'view' ? true : false}"/>
+			<Select id="office" forceSelection="false" items="{tendineModel>/officeLocations}" selectedKey="{detailModel>/officeCode}"
+				enabled="{= ${enableModel>/entity} === 'view' ? false : true}" visible="{= ${detailModel>/workLocation} === '2'}">
+				<core:Item key="{tendineModel>officeKey}" text="{tendineModel>officeDescription}"/>
+			</Select> -->
+            <Label
+                text="{i18n>notes}"
+                required="{= ${enableModel>/entity} !== 'view' ? true : false}"
+            />
+            <!-- <Input
+                value="{detailModel>/note}"
+                enabled="{= ${enableModel>/entity} === 'view' ? false : true}"
+                maxLength="40"
+                liveChange="onNotesWrite"
+            /> -->
+            <Input
+                value="{dataSel>/rowSelez/notes}"
+                maxLength="40"
+                liveChange="onNotesWrite"
+            />
+            <Label
+                text="{i18n>rejectionReason}"
+                visible="{= ${detailModel>/rejectionReason} ? true : false}"
+            />
+            <Input
+                value="{detailModel>/rejectionReason}"
+                visible="{= ${detailModel>/rejectionReason} ? true : false}"
+   
+            />
+        </f:SimpleForm>
+        <footer>
+            <Bar>
+                <contentLeft>
+                    <!-- <Button
+                        icon="sap-icon://decline"
+                        type="Reject"
+                        text="{i18n>cancel}"
+                        visible="{= ${enableModel>/entity} !== 'view' ? true : false}"
+                        press="onCancelPress"
+                        width="10rem"
+                    /> -->
+                </contentLeft>
+                <contentRight>
+                    <!-- <Button
+                        icon="sap-icon://save"
+                        type="Accept"
+                        text="{i18n>save}"
+                        visible="{= ${enableModel>/entity} !== 'view' ? true : false}"
+                        press="onSavePress"
+                        width="10rem"
+                        enabled="{= !${detailModel>/date} || !${detailModel>/activity} || !${detailModel>/workMinutes} || (!${detailModel>/absenceCode} &amp;&amp; !${detailModel>/workLocation}) || (${detailModel>/workLocation} === '2' &amp;&amp; !${detailModel>/officeCode}) || !${detailModel>/note} || !${enableModel>/saveButton} ? false : true}"
+                    />
+                    <Button
+                        icon="sap-icon://locked"
+                        type="Accept"
+                        text="{i18n>saveAndRelease}"
+                        visible="{= ${enableModel>/entity} !== 'view' ? true : false}"
+                        press="onSavePress"
+                        width="10rem"
+                        enabled="{= !${detailModel>/date} || !${detailModel>/activity} || !${detailModel>/workMinutes} || (!${detailModel>/absenceCode} &amp;&amp; !${detailModel>/workLocation}) || (${detailModel>/workLocation} === '2' &amp;&amp; !${detailModel>/officeCode}) || !${detailModel>/note} || !${enableModel>/saveButton} ? false : true}"
+                    /> -->
+                     <Button
+                        text="{i18n>cancel}"
+                        icon="sap-icon://decline"
+                        type="Reject"
+                        press="onCancelPress"
+                        visible="{ui>/expenseCancel}"
+                        width="10rem"
+                    />
+                     <Button
+                        icon="sap-icon://save"
+                        type="Accept"
+                        text="{i18n>save}"
+                        visible="true"
+                        press="onSavePress"
+                        width="10rem"
+                    />
+                    <!-- enabled="{= ${detailModel>/date} || ${detailModel>/activity} ||
+                    ${detailModel>/workMinutes} || (${detailModel>/absenceCode} &amp;&amp;
+                    !${detailModel>/workLocation}) || (${detailModel>/workLocation} === '2'
+                    &amp;&amp; !${detailModel>/officeCode}) || !${detailModel>/note} ||
+                    !${enableModel>/saveButton} ? false : true}" -->
+                    <!-- <Button
+                        icon="sap-icon://locked"
+                        type="Accept"
+                        text="{i18n>saveAndRelease}"
+                        visible="false"
+                        press="onSavePress"
+                        width="10rem"
+                        enabled="{= ${enableModel>/entity} === 'view' ? false : true}"
+                    /> -->
+                    <!-- <Button
+                        icon="sap-icon://edit"
+                        text="{i18n>edit}"
+                        visible="{= ${enableModel>/entity} === 'view' &amp;&amp; ${detailModel>/status} !== '30' &amp;&amp; ((${periodsModel>/activity} &amp;&amp; !${detailModel>/absenceCode}) || (${periodsModel>/absence} &amp;&amp; ${detailModel>/absenceCode})) ? true : false}"
+                        press="onEditPress"
+                        width="10rem"
+                    /> -->
+                     
+                </contentRight>
+            </Bar>
+        </footer>
+    </Page>
+</mvc:View>

@@ -1,0 +1,49 @@
+.maringLeftLegendTable {
+    margin-Left: 30% !important;
+}
+
+[id*="idSchedulazioniTable"].sapMLIBSelected {
+    background: rgba(255, 255, 255, 0.8) !important;
+}
+
+.classSimpleFormInputExpense {
+    width: 150% !important;
+    margin-left: -25% !important;
+}
+
+.nascondiBordi,
+.nascondiBordi>div>input {
+    border: unset !important;
+}
+
+.sapMInputDivWrapper::before {
+    outline: none !Important;
+}
+
+.maxHeight>div {
+    max-height: 300px;
+}
+
+.removePadding>div {
+    padding: 0.1rem;
+}
+
+[id*="idPanelTable"]>div.sapMPanelContent:not(.sapMPanelBGTransparent) {
+    border-bottom: hidden !important;
+}
+
+.enlargeTitle {
+    font-size: 1.5rem;
+}
+
+.bold {
+    font-weight: bold !important;
+}
+
+.sapMObjStatusNone>span {
+    color: black !important;
+}
+
+.sapMObjStatusError>span {
+    color: red !important;
+}

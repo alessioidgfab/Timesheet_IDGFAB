@@ -1,0 +1,246 @@
+<mvc:View controllerName="timesheetproject2.controller.AddActivities"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m" displayBlock="true" busyIndicatorDelay="0" height="100%"
+    xmlns:core="sap.ui.core"
+    xmlns:semantic="sap.m.semantic"
+    xmlns:f="sap.ui.layout.form">
+    <SplitContainer>
+        <masterPages>
+            <semantic:MasterPage title="Master Page Title">
+                <SearchField id="idSearchField2" liveChange="onSearch2"></SearchField>
+                <semantic:content>
+                    <List id="ProductList" items="{AddActivitiesModel>/Activities}" 
+                        includeItemInSelection="true">
+                        <headerToolbar>
+                            <OverflowToolbar>
+                                <content>
+                                    <Title text="{i18n>titleActivities}" level="H2" />
+                                    <ToolbarSpacer />
+                                    <!-- <Select selectedKey="MultiSelect" change="handleSelectChange">
+						<items>
+							<core:Item key="None" text="No Selection" />
+							<core:Item key="SingleSelect" text="Single Selection" />
+							<core:Item key="SingleSelectLeft" text="Single Selection Left" />
+							<core:Item key="SingleSelectMaster" text="Single Selection (Master)" />
+							<core:Item key="MultiSelect" text="Multi Selection" />
+                            {path: 'legendModel>/wbs', sorter: {path: 'description'}}"
+						</items>
+					</Select> -->
+                                </content>
+                            </OverflowToolbar>
+                        </headerToolbar>
+                        <StandardListItem title="{AddActivitiesModel>ID}" description="{AddActivitiesModel>Descrizione}" iconDensityAware="false" iconInset="false" type="Navigation" press="onSelectionChange"  />
+                    </List>
+                </semantic:content>
+                <semantic:landmarkInfo>
+                    <PageAccessibleLandmarkInfo rootLabel="Root label" headerLabel="Header label" footerLabel="Footer label"></PageAccessibleLandmarkInfo>
+                </semantic:landmarkInfo>
+                <!-- <semantic:sort>
+                    <semantic:SortSelect change="onSemanticSelectChange" items="{AddActivitiesModel>/Activities}" id="Attivita">
+                        <Button
+                        id="sortUsersButton"
+                        icon="sap-icon://sort"
+                        tooltip="sort"
+                        press="onListSort"
+                        width="20%"
+                    /> />
+                    </semantic:SortSelect>
+                </semantic:sort> -->
+                <!-- <semantic:filter>
+                    <semantic:Button 
+                    type="Transparent"
+                    text="{i18n>selectPeriod}"
+                    press="onChangePeriodPress"
+                    icon="sap-icon://date-time"
+                    ></semantic:Button>
+                
+                    
+                </semantic:filter> -->
+                <!-- <semantic:group>
+                <semantic:GroupAction press="onSemanticButtonPress"/>
+            </semantic:group> -->
+          
+                <semantic:addAction>
+                    <semantic:AddAction press="AddActivity" />
+                </semantic:addAction>
+
+                <semantic:customFooterContent>
+                
+                
+                </semantic:customFooterContent>
+
+                <!-- <semantic:multiSelectAction>
+                <semantic:MultiSelectAction press="onMultiSelectPress"/>
+            </semantic:multiSelectAction> -->
+            </semantic:MasterPage>
+        </masterPages>
+        <detailPages>
+          
+            <semantic:DetailPage id="idDetailPage" title="Detail Page Title">
+              
+                <SearchField id="idSearchField" liveChange="onSearch" visible="false"  width="50%"></SearchField>
+                <semantic:content>
+
+                    <List id="listUser" items="{AssUserModel>/User}" mode="MultiSelect" includeItemInSelection="true" selectionChange="onSelectUser" visible="false">
+                        <headerToolbar>
+                            <OverflowToolbar>
+                                <content>
+                                    <Title text="Utenti" level="H2" />
+                                    <ToolbarSpacer />
+                                    <!-- <Select selectedKey="MultiSelect" change="handleSelectChange">
+                                <items>
+                                    <core:Item key="None" text="No Selection" />
+                                    <core:Item key="SingleSelect" text="Single Selection" />
+                                    <core:Item key="SingleSelectLeft" text="Single Selection Left" />
+                                    <core:Item key="SingleSelectMaster" text="Single Selection (Master)" />
+                                    <core:Item key="MultiSelect" text="Multi Selection" />
+                                </items>
+                            </Select> -->
+                                </content>
+                            </OverflowToolbar>
+                        </headerToolbar>
+                        <StandardListItem title="{AssUserModel>ID_UTENTE}" description="{AssUserModel>EMAIL_UTENTE}" iconDensityAware="false" iconInset="false" 
+                    infoState = "{= ${AssUserModel>statusId} === '1' ? 'Success' : ${tableModel>statusId} === '2' ?  'Warning' : 'Error'}" icon="sap-icon://person-placeholder"/>
+                    </List>
+
+
+                        <f:SimpleForm
+                            id="AddActivity"
+                            editable="false"
+                            layout="ResponsiveGridLayout"
+                            title="{i18n>AddActivity}"
+                            labelSpanXL="4"
+                            labelSpanL="3"
+                            labelSpanM="4"
+                            labelSpanS="12"
+                            adjustLabelSpan="false"
+                            emptySpanXL="0"
+                            emptySpanL="4"
+                            emptySpanM="0"
+                            emptySpanS="0"
+                            columnsXL="2"
+                            columnsL="1"
+                            columnsM="1"
+                            singleContainerFullSize="false"
+                            visible="false"
+                         
+                        >
+                            <f:content>
+                                <!-- <Label text="{i18n>tid}" />
+                                <Input id="id" editable="false"/> -->
+        
+                                <Label text="{i18n>NomeAttivita}" />
+                                <Input id="NomeAttivita" />
+        
+                                <Label text="{i18n>DataInizioAttivita}" />
+                                <Input id="DataInizioAttivita" />
+        
+                                <Label text="{i18n>DataFineAttivita}" />
+                                <Input id="DataFineAttivita" />
+        
+                                <Label text="{i18n>numeroGiornateLavorative}" />
+                                <Input id="numeroGiornateLavorative" />
+        
+                                <!-- <Label text="{i18n>ttelefono}" />
+                                <Input id="telefono" /> -->
+                            </f:content>
+                        </f:SimpleForm>
+        
+                       
+        
+                       
+                       
+                        
+                
+                
+        
+        
+                
+                    
+                
+                       
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </semantic:content>
+                <!-- <semantic:positiveAction>
+                <semantic:PositiveAction text="Positive" press="onSemanticButtonPress"/>
+            </semantic:positiveAction>
+            <semantic:negativeAction>
+                <semantic:NegativeAction text="Negative" press="onSemanticButtonPress"/>
+            </semantic:negativeAction>
+            <semantic:forwardAction>
+                <semantic:ForwardAction press="onSemanticButtonPress"/>
+            </semantic:forwardAction> -->
+                <!-- <semantic:flagAction>
+                <semantic:FlagAction press="onSemanticButtonPress"/>
+            </semantic:flagAction> -->
+                <!-- <semantic:favoriteAction>
+                <semantic:FavoriteAction press="onSemanticButtonPress"/>
+            </semantic:favoriteAction> -->
+                <!-- <semantic:sendEmailAction>
+                <semantic:SendEmailAction press="onSemanticButtonPress"/>
+            </semantic:sendEmailAction> -->
+                <!-- <semantic:sendMessageAction>
+                <semantic:SendMessageAction press="onSemanticButtonPress"/>
+            </semantic:sendMessageAction> -->
+                <!-- <semantic:discussInJamAction>
+                <semantic:DiscussInJamAction press="onSemanticButtonPress"/>
+            </semantic:discussInJamAction> -->
+                <!-- <semantic:shareInJamAction>
+                <semantic:ShareInJamAction press="onSemanticButtonPress"/>
+            </semantic:shareInJamAction> -->
+            
+            <semantic:editAction>
+                <semantic:EditAction id="idEditAction" press="onPressEdit" visible="false" ></semantic:EditAction>
+            </semantic:editAction>
+            <semantic:deleteAction>
+                <semantic:DeleteAction id="idDeleteAction" press="onPressDelete" visible="false" ></semantic:DeleteAction>
+            </semantic:deleteAction>
+            <semantic:saveAction>
+                <semantic:SaveAction id="idAddAction" press="onPressSave" visible="false" ></semantic:SaveAction>
+            </semantic:saveAction>
+                <!-- <semantic:printAction>
+                    <semantic:PrintAction press="onSemanticButtonPress"/>
+                </semantic:printAction> -->
+                <!-- <semantic:messagesIndicator>
+                <semantic:MessagesIndicator press="onMessagesButtonPress"/>
+            </semantic:messagesIndicator>
+            <semantic:pagingAction>
+                <PagingButton count="5" positionChange="onPositionChange"/>
+            </semantic:pagingAction> -->
+
+                <semantic:customFooterContent>
+                <OverflowToolbarButton icon="sap-icon://write-new-document" text="Salva modifiche" press="onEditSavePress" visible="false" id="idSalvaModifiche"/>
+               
+            </semantic:customFooterContent>
+
+            <!-- <semantic:customShareMenuContent>
+                <Button text="CustomShareBtn1" icon="sap-icon://color-fill" press="onPress"/>
+                <Button text="CustomShareBtn2" icon="sap-icon://crop" press="onPress"/>
+            </semantic:customShareMenuContent> -->
+
+            </semantic:DetailPage>
+            
+
+        </detailPages>
+
+    </SplitContainer>
+
+</mvc:View>

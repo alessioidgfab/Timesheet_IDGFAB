@@ -1,0 +1,406 @@
+<mvc:View
+    controllerName="timesheetproject2.controller.Expense"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:c="sap.ui.commons"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:me="sap.me"
+    xmlns:u="sap.ui.unified"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns="sap.m"
+    xmlns:t="sap.ui.table"
+    busyIndicatorDelay="1"
+>
+    <Page
+        class="homePage"
+        id="idNotaSpesePage"
+    >
+        <customHeader>
+            <core:Fragment
+                fragmentName="timesheetproject2.view.fragment.Header"
+                type="XML"
+            />
+        </customHeader>
+        <content>
+            <FlexBox justifyContent="Center">
+                <u:CalendarDateInterval
+                    showDayNamesLine="false"
+                    id="idExpenseCalendar"
+                    days="7"
+                    select="onSelectDay"
+                    startDateChange="_changeWeek"
+                    width="45rem"
+                />
+            </FlexBox>
+            <FlexBox justifyContent="Center">
+                <Title
+                    text="{expenseModel>/titleDate}"
+                    level="H2"
+                />
+            </FlexBox>
+            <FlexBox justifyContent="Center">
+                <FlexBox
+                    justifyContent="Center"
+                    alignItems="Center"
+                    width="45rem"
+                >
+                    <!-- <FlexBox
+                        justifyContent="Start"
+                        alignItems="Center"
+                        width="10%"
+                    >
+                        <core:Icon
+                            src="sap-icon://navigation-left-arrow"
+                            press="onBackWbsPress"
+                            size="24px"
+                            visible="{ui>/backButton}"
+                            class="sapUiSmallMarginEnd"
+                        />
+                    </FlexBox> -->
+                    <FlexBox
+                        justifyContent="Center"
+                        alignItems="Center"
+                        width="80%"
+                    >
+                        <Title
+                            text="{expenseModel>/title}"
+                            level="H1"
+                        />
+                    </FlexBox>
+                    <!-- <FlexBox
+                        justifyContent="End"
+                        alignItems="Center"
+                        width="10%"
+                    >
+                        <core:Icon
+                            src="sap-icon://navigation-right-arrow"
+                            press="onForwardWbsPress"
+                            size="24px"
+                            visible="{ui>/forwardButton}"
+                            class="sapUiSmallMarginBegin"
+                        />
+                    </FlexBox> -->
+                </FlexBox>
+            </FlexBox>
+            <FlexBox justifyContent="Center">
+                <f:SimpleForm
+                    editable="true"
+                    class="classSimpleFormInputExpense"
+                >
+                    <List>
+                        <InputListItem label="{i18n>expenseCategory}" >
+                            <ComboBox
+                                id="idSelectExpenseCategory"
+                                items="{path: 'expenseModel>/expenseType', sorter: {path: 'expenseModel>TIPO_SPESA'} }"
+                                selectionChange="onChangeExpenseCategory"
+                                class="nascondiBordi"
+                                textAlign="End"
+                                selectedKey="{expenseToSaveModel>/expenseCategory}"
+                                enabled="{= ${ui>/expenseFormEnabled} &amp;&amp; ${periodsModel>/expense} ? true : false}"
+                                width="15rem"
+                                required="true"
+                            >
+                                <core:Item
+                                    text="{expenseModel>DESCRIZIONE}"
+                                    key="{expenseModel>ID_TIPO_SPESA}"
+                                />
+                            </ComboBox>
+                        </InputListItem>
+                        <InputListItem
+                        id="idAmount"
+                            label="{i18n>amount}"
+                            visible="{= ${expenseToSaveModel>/expenseCategory} !== '5' }"
+                        >
+                            <Input
+                                type="Text"
+                                placeholder="..."
+                                value="{expenseToSaveModel>/amount}"
+                                id="idInputAmount"
+                                liveChange="liveChangeAmount"
+                                class="nascondiBordi"
+                                enabled="{= ${ui>/expenseFormEnabled} &amp;&amp; ${periodsModel>/expense} ? true : false}"
+                                width="15rem"
+                                required="true"
+                            />
+                        </InputListItem>
+                        <!-- <InputListItem
+                            id="repayableAmountId"
+                            label="{i18n>repayableAmount}"
+                            visible="{= ${expenseToSaveModel>/expenseCategory} !== '5' }"
+                            
+                        >
+                            <Input
+                                value="{expenseToSaveModel>/currency}"
+                                enabled="false"
+                                id="repayableAmount"
+                                class="nascondiBordi"
+								 placeholder="..."
+                                 width="15rem"
+                            />
+                        </InputListItem> -->
+                         <InputListItem
+                            label="Km"
+                            id="idInputKmLabel"
+                            visible="{= ${expenseToSaveModel>/expenseCategory} === '5'}"
+                            
+                        >
+                            <Input
+                                type="Text"
+                                placeholder="..."
+                                value="{expenseToSaveModel>/km}"
+                                id="idInputKm"
+                                liveChange="liveChangeKm"
+                                class="nascondiBordi"
+                                enabled="true"
+                                width="15rem"
+                                required="true"
+                            /> 
+                        </InputListItem>
+                        <InputListItem
+                            label="{i18n>placeFrom}"
+                            visible="false"
+                            id="placefrom"
+                        >
+                            <Input
+                                placeholder="..."
+                                value="{expenseToSaveModel>/placeFrom}"
+                                id="idInputFrom"
+                                liveChange="liveChangePlaceFrom"
+                                class="nascondiBordi"
+                                enabled="{= ${ui>/expenseFormEnabled} &amp;&amp; ${periodsModel>/expense} ? true : false}"
+                                width="15rem"
+                                required="true"
+                            />
+                        </InputListItem>
+                        <!-- <InputListItem
+                            visible="true"
+                            id="idButtonInvert"
+                        >
+                            <Button
+                                icon="sap-icon://sort"
+                                press="onInvertPress"
+                                id="idButtonInvertPlaces"
+                                enabled="{= ${ui>/expenseFormEnabled} &amp;&amp; ${periodsModel>/expense} ? true : false}"
+                                visible="false"
+                            />
+                        </InputListItem> -->
+    
+                    
+                        <InputListItem
+                            label="{i18n>placeTo}"
+                            visible="true"
+                            id="placeto"
+
+                        >
+                            <Input
+                                placeholder="..."
+                                value="{expenseToSaveModel>/placeTo}"
+                                id="idInputTo"
+                                liveChange="liveChangePlaceTo"
+                                class="nascondiBordi"
+                                enabled="{= ${ui>/expenseFormEnabled} &amp;&amp; ${periodsModel>/expense} ? true : false}"
+                                width="15rem"
+                                required="true"
+                            />
+                        </InputListItem>
+                        <InputListItem
+                            label="{i18n>vehicleType}"
+                            id="vehicle"
+                            visible="true"
+
+                        >
+                          <!-- items="{expenseModel>/vehicleType}" -->
+                            <Select
+                              
+                                id="idSelectVehicleType"
+                                class="nascondiBordi"
+                                selectedKey="{expenseToSaveModel>/vehicleType}"
+                                change="onChangeVehicleType"
+                                enabled="{= ${ui>/expenseFormEnabled} &amp;&amp; ${periodsModel>/expense} ? true : false}"
+                                width="15rem"
+                                required="true"
+                            >
+                                <core:Item
+                                    text="Aziendale"
+                                    key="1"
+                                />
+                                <core:Item
+                                text="Propria"
+                                key="2"
+                            />
+                            </Select>
+                        </InputListItem>
+                        <InputListItem label="{i18n>location}" id="luogospesa">
+							<Input placeholder="..." value="{expenseToSaveModel>/place}" id="idInputPlace" liveChange="liveChangePlace" class="nascondiBordi"
+								enabled="{= ${ui>/expenseFormEnabled} &amp;&amp; ${periodsModel>/expense} ? false  :  true }"
+                                width="15rem"
+                                required="true"
+                                />
+						</InputListItem>
+                        <InputListItem
+                            label="Note" id="repayablekm"
+                        >
+                            <Input
+                                value="{expenseToSaveModel>/note}"
+                                placeholder="..."
+                                id="idInputNote"
+                                maxLength="50"
+                                liveChange="liveChangeNote"
+                                class="nascondiBordi"
+                                enabled="true"
+                                width="15rem"
+                                required="true"
+                            />
+                        </InputListItem>
+                    </List>
+                </f:SimpleForm>
+            </FlexBox>
+            <Table
+                id="idTableExpenses"
+                items="{expenseModel>/arrayExpense}"
+                mode="MultiSelect"
+                itemPress="onItemPress"
+                selectionChange="pressSelectMulti"
+                class="sapUiSizeCompact"
+            >
+                <columns>
+                    <Column
+                        hAlign="Center"
+                        width="100%"
+                    >
+                        <Label text="{i18n>expCat}"  />
+                    </Column>
+                    <Column hAlign="Center"  width="100%">
+                        <Label text="{i18n>amount}" />
+                    </Column>
+                    <!-- <Column hAlign="Center">
+                        <Label text="{i18n>repayableAmount}" />
+                    </Column> -->
+                    <!-- <Column hAlign="Center">
+                        <Label text="{i18n>currency}" />
+                    </Column> -->
+                    <Column hAlign="Center"  width="100%">
+                        <Label text="{i18n>place}" />
+                    </Column>
+                    <Column hAlign="Center"  width="100%">
+                        <Label text="{i18n>km}" />
+                    </Column>
+                    <!-- <Column hAlign="Center">
+                        <Label text="{i18n>repayableKm}" />
+                    </Column> -->
+                    <Column hAlign="Center"  width="100%">
+                        <Label text="{i18n>plFrom}" />
+                    </Column>
+                    <Column hAlign="Center"  width="100%">
+                        <Label text="{i18n>plTo}" />
+                    </Column>
+                    <Column hAlign="Center"  width="100%">
+                        <Label text="{i18n>vehicleType}"  />
+                    </Column>
+                    <Column
+                        hAlign="Center"
+                        width="100%"
+                    >
+                        <Label text="{i18n>notes}" />
+                    </Column>
+                     <Column
+                        hAlign="Center"
+                        width="100%"
+                    >
+                     
+                    </Column>
+                </columns>
+                <ColumnListItem
+                    vAlign="Middle"
+
+                    press="onPressExpenseRow"
+                >
+                    <cells>
+                        <Text text="{expenseModel>descrizioneTipoSpesa}" />
+                        <Text text="{expenseModel>importo}" />
+                        <!-- <Text text="{expenseModel>importoRimborsabile}" /> -->
+                        <!-- <Text text="{= ${expenseModel>importo} !== '' ? 'EUR' : ''}"/> -->
+                        <!-- <Text text="{expenseModel>currency}" /> -->
+                         <!-- text="{= ${expenseModel>idTipoSpesa} === '14' ? '' : ${expenseModel>localita}}" -->
+                        <Text
+                            text="{expenseModel>localita}"
+                        />
+                        <Text text="{expenseModel>km}" />
+                        <!-- <Text text="{expenseModel>kmRimborsabile}"  /> -->
+                        <!-- text="{= ${expenseModel>idTipoSpesa} === '14' ? ${expenseModel>localita} : ''}" -->
+                        <Text
+                            text="{expenseModel>localitaA} "
+                        />
+                        <Text text="{expenseModel>localitaB}" />
+                        <Text text="{expenseModel>vehicleType}" />
+                        <Text text="{expenseModel>nota}" />
+                           <Button type="Transparent"
+                                text="Edit"
+                                press="onPressTs"
+                                ariaDescribedBy="editButtonLabel"
+                                icon="sap-icon://edit" />
+                    </cells>
+                </ColumnListItem>
+            </Table>
+        </content>
+        <footer>
+            <Bar>
+                <contentLeft>
+                    <!-- <Button
+                        text="{i18n>duplicate}"
+                        icon="sap-icon://duplicate"
+                        press="onDuplicatePress"
+                        visible="{ui>/expenseDuplicate}"
+                        width="10rem"
+                    /> -->
+                    <Button
+                    id="idDeleteButton"
+                        text="{i18n>delete}"
+                        icon="sap-icon://delete"
+                        press="onDeletePress"
+                        type="Reject"
+                        visible="{= ${ui>/expenseDelete} &amp;&amp; ${ui>/sameUser} &amp;&amp; ${periodsModel>/expense} ? true : false}"
+                        width="10rem"
+                    />
+                </contentLeft>
+                <contentRight>
+                    <Button
+                        text="{i18n>cancel}"
+                        icon="sap-icon://decline"
+                        type="Reject"
+                        press="onCancelPress"
+                        visible="{ui>/expenseCancel}"
+                        width="10rem"
+                    />
+                    <Button
+                    id="changeButton"
+                        text="{i18n>saveModify}"
+                        icon="sap-icon://save"
+                        press="onSavePress"
+                        visible="true"
+                        type="Accept"
+                        width="10rem"
+                        enabled="false"
+
+                    />
+<!-- {= ${expenseToSaveModel>/expenseCategory} &amp;&amp; (${expenseToSaveModel>/expenseCategory} !== '14' &amp;&amp; parseFloat(${expenseToSaveModel>/amount}) > 0 &amp;&amp; ${expenseToSaveModel>/place}) || (parseFloat(${expenseToSaveModel>/km}) > 0 &amp;&amp; ${expenseToSaveModel>/placeFrom} &amp;&amp; ${expenseToSaveModel>/placeTo} &amp;&amp; ${expenseToSaveModel>/vehicleType}) ? true : false} -->
+                    <!-- <Button text="{= ${ui>/expenseSave} ? ${i18n>saveCopy} : ${i18n>save}}" icon="sap-icon://add" press="onAddPress" type="Accept"
+						visible="{= (${ui>/expenseAdd} || ${ui>/expenseSave}) &amp;&amp; ${periodsModel>/expense} ? true : false}" width="10rem"
+						enabled="{= ${expenseToSaveModel>/expenseCategory} &amp;&amp; (${expenseToSaveModel>/expenseCategory} !== '14' &amp;&amp; parseFloat(${expenseToSaveModel>/amount}) > 0 &amp;&amp; ${expenseToSaveModel>/place}) || (parseFloat(${expenseToSaveModel>/km}) > 0 &amp;&amp; ${expenseToSaveModel>/placeFrom} &amp;&amp; ${expenseToSaveModel>/placeTo} &amp;&amp; ${expenseToSaveModel>/vehicleType}) ? true : false}"/> -->
+                    <Button
+                    id="AddButton"
+                        text="{= ${ui>/expenseSave} ? ${i18n>saveCopy} : ${i18n>save}}"
+                        icon="sap-icon://add"
+                        press="onAddPress"
+                        type="Accept"
+                        visible="{= (${ui>/expenseAdd} || ${ui>/expenseSave}) &amp;&amp; ${periodsModel>/expense} ? true : false}"
+                        width="10rem"
+                        enabled="true"
+                    />
+                    <!-- "{= ${expenseToSaveModel>/expenseCategory} &amp;&amp; (${expenseToSaveModel>/expenseCategory} !== '14') || (parseFloat(${expenseToSaveModel>/km}) > 0 &amp;&amp; ${expenseToSaveModel>/placeFrom} &amp;&amp; ${expenseToSaveModel>/placeTo} &amp;&amp; ${expenseToSaveModel>/vehicleType}) ? true : false}" -->
+                </contentRight>
+            </Bar>
+        </footer>
+    </Page>
+</mvc:View>

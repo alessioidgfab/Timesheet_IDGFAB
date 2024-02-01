@@ -1,0 +1,9 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:c="sap.ui.commons" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:u="sap.ui.unified" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:app="http://www.w3.org/1999/xhtml">
+    <Dialog title="{i18n>duplicateExpenses}" afterOpen="onAfterOpenDialog" afterClose="onAfterCloseDialog" >
+        <u:Calendar id="idCalendarDuplicateExpense" select="selectDateToDuplicate" startDateChange="_setCalendarDuplicate" showWeekNumbers="false" intervalSelection="false" singleSelection="false" />
+        <buttons>
+            <Button text="{i18n>duplicate}" press="onPressDuplicate" type="Accept" width="8rem" />
+            <Button text="{i18n>closeDialog}" press="onPressCloseDialog" type="Reject" width="8rem" />
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

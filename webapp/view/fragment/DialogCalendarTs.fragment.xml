@@ -1,0 +1,13 @@
+<core:FragmentDefinition controllerName="view.Home" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:c="sap.ui.commons" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:u="sap.ui.unified"
+	xmlns:h="http://www.w3.org/1999/xhtml" xmlns:app="http://www.w3.org/1999/xhtml">
+	<Dialog title="{timesheetModel>/calendarDialogTitle}"   afterClose="setHomePage" 
+		busyIndicatorDelay="1" >
+		<u:Calendar id="idTsCalendar"  singleSelection="false" startDateChange="setCalendarDialog"
+			class="sapUiSmallMarginEnd" select="selectDayDuplicate" showWeekNumbers="false"/>
+		<buttons>
+			<Button text="{i18n>confirm}" press="onConfirmCalendarDialogPress" type="Accept" width="8rem"/>
+			<Button text="{i18n>cancel}" press="onCancelCalendarDialogPress" type="Reject" width="8rem"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

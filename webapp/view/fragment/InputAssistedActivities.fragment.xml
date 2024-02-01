@@ -1,0 +1,27 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog title="{i18n>activitiesList}" class="sapUiPopupWithPadding" items="{tendineModel>/activities}" search="_handleValueHelpSearch"
+		confirm="_handleValueHelpClose" cancel="_handleValueHelpClose">
+		<CustomListItem>
+			<FlexBox justifyContent="Center" class="sapUiTinyMarginTop sapUiMediumMarginBegin sapUiMediumMarginEnd">
+				<Title text="{tendineModel>workPackage} / {tendineModel>workPackageName}" class="bold"/>
+			</FlexBox>
+			<FlexBox justifyContent="SpaceBetween" class="sapUiTinyMarginTop" alignItems="Center">
+				<FlexBox alignItems="Center" visible="{= ${tendineModel>engagementProjectResourceName} || ${tendineModel>workItemName} ? true : false}">
+					<Label text="{tendineModel>engagementProjectResourceName}" visible="{= ${tendineModel>engagementProjectResourceName} ? true : false}"
+						class="sapUiTinyMarginBegin"/>
+					<Label text="/" visible="{= ${tendineModel>engagementProjectResourceName} &amp;&amp; ${tendineModel>workItemName} ? true : false}"
+						class="sapUiTinyMarginBegin"/>
+					<Title text="{tendineModel>workItemName}" visible="{= ${tendineModel>workItemName} ? true : false}" class="bold sapUiTinyMarginBegin"/>
+				</FlexBox>
+				<Label text="{= ${tendineModel>billingControlCategory} ? ${i18n>NOTBILLABLE} : ''}" class="sapUiTinyMarginEnd"/>
+			</FlexBox>
+			<Label text="{= ${tendineModel>purchaseOrder/purchaseOrder} + ' / ' + parseInt(${tendineModel>purchaseOrder/purchaseOrderItem})}"
+				class="sapUiTinyMarginTop sapUiTinyMarginBegin" visible="{= ${tendineModel>purchaseOrder} ? true : false}"/>
+			<FlexBox justifyContent="SpaceBetween" class="sapUiTinyMarginTop sapUiTinyMarginBottom"
+				visible="{= ${tendineModel>engagementProjectName} || ${tendineModel>customerName} ? true : false}">
+				<Label text="{tendineModel>engagementProjectName}" class="sapUiTinyMarginBegin"/>
+				<Label text="{tendineModel>customerName}" class="sapUiTinyMarginEnd"/>
+			</FlexBox>
+		</CustomListItem>
+	</SelectDialog>
+</core:FragmentDefinition>

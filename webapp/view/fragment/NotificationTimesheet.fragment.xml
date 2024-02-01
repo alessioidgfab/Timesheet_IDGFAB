@@ -1,0 +1,53 @@
+<!-- <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" >
+	<Popover title="{workDate} - {WBS}" class="sapUiContentPadding" placement="Left">
+		<TextArea value="{notes}" enabled="false"/>
+	</Popover>
+		
+</core:FragmentDefinition> -->
+
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:c="sap.ui.commons" xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form" xmlns:u="sap.ui.unified" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:app="http://www.w3.org/1999/xhtml">
+	<Dialog title="{i18n>changeStatus}" afterOpen="_removeFocus">
+		<!-- <FlexBox justifyContent="Center" class="sapUiMediumMargin">
+			<ComboBox id="idGetStatus" items="{statoCommessa>/stato}" selectedKey="{usersModel>/selectedUser}" showSecondaryValues="true">
+				<core:ListItem key="{statoCommessa>ID}" text="{statoCommessa>Stato}"/>
+			</ComboBox>
+		</FlexBox> -->
+		<List
+		id="ProductList"
+		items="{NotificationModel>/ProductCollection}"
+		mode="SingleSelect"
+		includeItemInSelection="true">
+		<headerToolbar>
+			<OverflowToolbar>
+				<content>
+					<Title text="{i18n>titleActivities}" level="H2" />
+					<ToolbarSpacer />
+					<!-- <Select
+						selectedKey="MultiSelect"
+						change="handleSelectChange">
+						<items>
+							<core:Item key="None" text="No Selection" />
+							<core:Item key="SingleSelect" text="Single Selection" />
+							<core:Item key="SingleSelectLeft" text="Single Selection Left" />
+							<core:Item key="SingleSelectMaster" text="Single Selection (Master)" />
+							<core:Item key="MultiSelect" text="Multi Selection" />
+						</items>
+					</Select> -->
+				</content>
+			</OverflowToolbar>
+		</headerToolbar>
+		<StandardListItem
+			title="{NotificationModel>Name}"
+			description="{NotificationModel>ProductId}"
+			icon="{= ${NotificationModel>ProductId} === 'Da accettare' ? 'sap-icon://alert' : ${NotificationModel>ProductId} === 'Accettata' ? 'sap-icon://activity-2' : 'sap-icon://stop'}"
+			iconDensityAware="false"
+			iconInset="false" />
+	</List>
+		<buttons>
+			<Button  id="Accepted" text="{i18n>acceptedcommessa}" press="onPressOk" visible="true" />
+            <Button text="Cancel" press="onPressCancel"/>
+            
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

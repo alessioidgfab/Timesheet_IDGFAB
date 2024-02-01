@@ -1,0 +1,13 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:c="sap.ui.commons" xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form" xmlns:u="sap.ui.unified" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:app="http://www.w3.org/1999/xhtml">
+	<Dialog title="{i18n>enterWithUser}" afterOpen="_removeFocus">
+		<FlexBox justifyContent="Center">
+			<ComboBox items="{usersModel>/users}" selectedKey="{usersModel>/selectedUser}" showSecondaryValues="true">
+				<core:ListItem key="{usersModel>cid}" text="{usersModel>cognome} {usersModel>nome}" additionalText="{usersModel>externalId}"/>
+			</ComboBox>
+		</FlexBox>
+		<buttons>
+			<Button text="{i18n>OK}" press="onChangeUserPressOk" enabled="{= ${usersModel>/selectedUser} ? true : false}"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

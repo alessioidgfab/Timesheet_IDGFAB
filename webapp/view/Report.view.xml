@@ -1,0 +1,307 @@
+<mvc:View controllerName="timesheetproject2.controller.Report" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:t="sap.ui.table"
+	xmlns:semantic="sap.f.semantic" xmlns:f="sap.ui.layout.form" xmlns:u="sap.ui.unified" xmlns:footerbar="sap.ushell.ui.footerbar"
+	xmlns:core="sap.ui.core">
+	<Page>
+		<customHeader>
+			<core:Fragment fragmentName="timesheetproject2.view.fragment.Header" type="XML"/>
+		</customHeader>
+			<content>
+<ScrollContainer vertical="true">
+				<NavContainer id="navCon" width="100%">
+					<Panel id="activities" class="removePadding">
+						<FlexBox justifyContent="SpaceBetween" alignItems="Center">
+							<Title text="{i18n>activity}" class="sapUiTinyMarginBegin enlargeTitle"/>
+							<Button icon="sap-icon://collections-insight" text="{i18n>expense}" press="onExpensePress" width="10rem"/>
+						</FlexBox>
+						<IconTabBar id="idActivitiesBar" expandable="false" select="onIconTabBarSelect">
+							<items>
+								<IconTabFilter icon="sap-icon://activities" id="activitiesSummary" key="activitiesSummary" class="sapUiSizeCompact">
+									<Toolbar>
+										<Title text="{i18n>period}:"/>
+										<Title text="{activityModel>/startDate} - {activityModel>/endDate}"/>
+										<ToolbarSpacer/>
+										<Button text="{i18n>selectedPeriod}" press="onChangePeriodPress"/>
+									</Toolbar>
+									<content>
+										<f:SimpleForm>
+											<t:Table id="activitiesSummaryTable" selectionMode="None" title="{i18n>totals}" enableColumnReordering="false"
+												rows="{activityModel>/timesheetSum}" visibleRowCount="{= ${activityModel>/timesheetSum}.length}">
+												<t:Column sortProperty="project" resizable="false">
+													<t:label>
+														<Text text="{i18n>project}"/>
+													</t:label>
+													<t:template>
+														<Text text="{activityModel>project}"/>
+													</t:template>
+												</t:Column>
+												<t:Column sortProperty="totalWorkHours" resizable="false" hAlign="End">
+													<t:label>
+														<Text text="{i18n>total}"/>
+													</t:label>
+													<t:template>
+														<Text text="{activityModel>totalWorkHours}"/>
+													</t:template>
+												</t:Column>
+											</t:Table>
+										</f:SimpleForm>
+									</content>
+								</IconTabFilter>
+								<IconTabSeparator icon=""/>
+								<IconTabFilter icon="sap-icon://activity-items" key="activitiesDetail">
+									<Toolbar>
+										<Title text="{i18n>period}:"/>
+										<Title text="{activityModel>/startDate} - {activityModel>/endDate}"/>
+										<ToolbarSpacer/>
+										<Button text="{i18n>selectedPeriod}" press="onChangePeriodPress"/>
+									</Toolbar>
+									<f:SimpleForm>
+										<t:Table id="activitiesDetailTable" selectionMode="None" title="{i18n>worklistTitle}" enableColumnReordering="false"
+											rows="{activityModel>/timesheetList}" visibleRowCount="{= ${activityModel>/timesheetList}.length}">
+											<t:Column filterProperty="workDate" width="10%" resizable="false">
+												<t:label>
+													<Text text="{i18n>date}"/>
+												</t:label>
+												<t:template>
+													<Text text="{activityModel>workDate}"/>
+												</t:template>
+											</t:Column>
+											<!-- <t:Column visible="{enableReportModel>/wbsVisible}" width="15%" resizable="false">
+												<t:label>
+													<Text text="{i18n>project}"/>
+												</t:label>
+												<t:template>
+													<Text text="{activityModel>descriptionProject}"/>
+												</t:template>
+											</t:Column> -->
+											<t:Column sortProperty="WBS" filterProperty="WBS" width="20%" resizable="false">
+												<t:label>
+													<Text text="{i18n>workPackage}"/>
+												</t:label>
+												<t:template>
+													<Text text="{activityModel>WBS}"/>
+												</t:template>
+											</t:Column>
+											<!-- <t:Column sortProperty="descriptionActivity" filterProperty="descriptionActivity" width="15%" resizable="false">
+												<t:label>
+													<Text text="{i18n>role}"/>
+												</t:label>
+												<t:template>
+													<Text text="{= ${activityModel>absenceDescription} ? ${activityModel>absenceDescription} : ${activityModel>descriptionActivity}}"/>
+												</t:template>
+											</t:Column>
+											<t:Column sortProperty="descriptionWorkItem" filterProperty="descriptionWorkItem" width="10%" resizable="false">
+												<t:label>
+													<Text text="{i18n>workItem}"/>
+												</t:label>
+												<t:template>
+													<Text text="{activityModel>descriptionWorkItem}"/>
+												</t:template>
+											</t:Column>
+											<t:Column sortProperty="purchaseOrderItem" filterProperty="purchaseOrderItem" width="12%" resizable="false">
+												<t:label>
+													<Text text="{i18n>oda}"/>
+												</t:label>
+												<t:template>
+													<Text
+														text="{= parseInt(${activityModel>purchaseOrderItem}) ? parseInt(${activityModel>purchaseOrder}) + ' \n ' + parseInt(${activityModel>purchaseOrderItem}) : ''}"/>
+												</t:template>
+											</t:Column> -->
+											<t:Column sortProperty="workHours" filterProperty="workHours" width="10%" resizable="false">
+												<t:label>
+													<Text text="{i18n>hours}"/>
+												</t:label>
+												<t:template>
+													<Text text="{activityModel>workHours}"/>
+												</t:template>
+											</t:Column>
+											<t:Column sortProperty="billDescription" filterProperty="billDescription" width="10%" resizable="false">
+												<t:label>
+													<Text text="{i18n>billDescription}"/>
+												</t:label>
+												<t:template>
+													<Text text="{activityModel>billDescription}"/>
+												</t:template>
+											</t:Column>
+											<t:Column sortProperty="workLocDescription" filterProperty="workLocDescription" width="12%" resizable="false">
+												<t:label>
+													<Text text="{i18n>place} {i18n>office}"/>
+												</t:label>
+												<t:template>
+													<Text
+														text="{activityModel>officeDescription}"/>
+												</t:template>
+											</t:Column>
+											<t:Column sortProperty="notes" filterProperty="notes" width="25%" resizable="false">
+												<t:label>
+													<Text text="{i18n>notes}"/>
+												</t:label>
+												<t:template>
+													<Text text="{activityModel>notes}"/>
+												</t:template>
+											</t:Column>
+											<t:Column width="6%" resizable="false">
+												<t:label>
+													<Text text="{i18n>status}"/>
+												</t:label>
+												<t:template>
+													<Text text="{activityModel>statusId}"/>
+												</t:template>
+											</t:Column>
+										</t:Table>
+									</f:SimpleForm>
+								</IconTabFilter>
+							</items>
+						</IconTabBar>
+					</Panel>
+					<Panel id="expenseReport" class="removePadding">
+						<FlexBox justifyContent="SpaceBetween" alignItems="Center">
+							<Title text="{i18n>expense}" class="sapUiTinyMarginBegin enlargeTitle"/>
+							<Button icon="sap-icon://visits" text="{i18n>activity}" press="onActivityPress" width="10rem"/>
+						</FlexBox>
+						<IconTabBar id="idExpensesBar" expandable="false" select="onIconTabBarSelect">
+							<items>
+								<IconTabFilter icon="sap-icon://expense-report" id="expensesSummary" key="expensesSummary">
+									<Toolbar>
+										<Title text="{i18n>period}:"/>
+										<Title text="{activityModel>/startDate} - {activityModel>/endDate}"/>
+										<ToolbarSpacer/>
+										<Button text="{i18n>selectedPeriod}" press="onChangePeriodPress"/>
+									</Toolbar>
+								</IconTabFilter>
+								<IconTabSeparator icon=""/>
+								<IconTabFilter icon="sap-icon://sales-order-item" key="expensesDetail">
+									<Toolbar>
+										<Title text="{i18n>period}:"/>
+										<Title text="{activityModel>/startDate} - {activityModel>/endDate}"/>
+										<ToolbarSpacer/>
+										<Button text="{i18n>selectedPeriod}" press="onChangePeriodPress"/>
+									</Toolbar>
+									<f:SimpleForm>
+										<t:Table id="expensesDetailTable" selectionMode="None" title="{i18n>spesePresenti}" enableColumnReordering="false"
+											rows="{expenseModel>/expensesList}" visibleRowCount="{= ${expenseModel>/expensesList}.length}">
+											<t:Column sortProperty="idTrasferta" filterProperty="idTrasferta" width="10%" resizable="false">
+												<t:label>
+													<Text text="{i18n>id}"/>
+												</t:label>
+												<t:template>
+													<Text text="{expenseModel>idSpesa}"/>
+												</t:template>
+											</t:Column>
+											<t:Column sortProperty="dataSpesa" filterProperty="dataSpesa" width="15%" resizable="false">
+												<t:label>
+													<Text text="{i18n>date}"/>
+												</t:label>
+												<t:template>
+													<Text text="{expenseModel>dataSpesa}"/>
+												</t:template>
+											</t:Column>
+											<t:Column sortProperty="descriptionProject" filterProperty="descriptionProject" width="25%" resizable="false">
+												<t:label>
+													<Text text="{i18n>project}"/>
+												</t:label>
+												<t:template>
+													<Text text="{expenseModel>descriptionProject}"/>
+												</t:template>
+											</t:Column>
+											<t:Column visible="{enableReportModel>/wbsVisible}" width="15%" resizable="false">
+												<t:label>
+													<Text text="{i18n>workPackage}"/>
+												</t:label>
+												<t:template>
+													<Text text="{expenseModel>WBS}"/>
+												</t:template>
+											</t:Column>
+											<!-- <t:Column visible="{enableReportModel>/wbsVisible}" width="15%" resizable="false">
+												<t:label>
+													<Text text="{i18n>role}"/>
+												</t:label>
+												<t:template>
+													<Text text="{= ${expenseModel>absenceDescription} ? ${expenseModel>absenceDescription} : ${expenseModel>descriptionActivity}}"/>
+												</t:template>
+											</t:Column>
+											<t:Column sortProperty="descriptionWorkItem" filterProperty="descriptionWorkItem" width="25%" resizable="false">
+												<t:label>
+													<Text text="{i18n>workItem}"/>
+												</t:label>
+												<t:template>
+													<Text text="{expenseModel>descriptionWorkItem}"/>
+												</t:template>
+											</t:Column>
+											<t:Column visible="{enableReportModel>/wbsVisible}" width="15%" resizable="false">
+												<t:label>
+													<Text text="{i18n>oda}"/>
+												</t:label>
+												<t:template>
+													<Text
+														text="{= parseInt(${expenseModel>purchaseOrderItem}) ? parseInt(${expenseModel>purchaseOrder}) + ' \n ' + parseInt(${expenseModel>purchaseOrderItem}) : ''}"/>
+												</t:template>
+											</t:Column> -->
+											<t:Column sortProperty="expenseType" filterProperty="expenseType" width="18%" resizable="false">
+												<t:label>
+													<Text text="{i18n>expenseCategory}"/>
+												</t:label>
+												<t:template>
+													<Text text="{expenseModel>expenseType}"/>
+												</t:template>
+											</t:Column>
+											<t:Column sortProperty="place" filterProperty="place" width="18%" resizable="false">
+												<t:label>
+													<Text text="{i18n>place}"/>
+												</t:label>
+												<t:template>
+													<Text text="{expenseModel>place}"/>
+												</t:template>
+											</t:Column>
+											<!-- <t:Column sortProperty="localitaDa" filterProperty="localitaDa" width="18%" resizable="false">
+												<t:label>
+													<Text text="{i18n>placeFrom}"/>
+												</t:label>
+												<t:template>
+													<Text text="{expenseModel>localitaDa}"/>
+												</t:template>
+											</t:Column>
+											<t:Column sortProperty="localitaA" filterProperty="localitaA" width="17%" resizable="false">
+												<t:label>
+													<Text text="{i18n>placeTo}"/>
+												</t:label>
+												<t:template>
+													<Text text="{expenseModel>localitaA}"/>
+												</t:template>
+											</t:Column> -->
+											<t:Column sortProperty="importo" filterProperty="importo" width="10%" resizable="false" hAlign="End">
+												<t:label>
+													<Text text="{i18n>amount}"/>
+												</t:label>
+												<t:template>
+													<Text text="{expenseModel>importo}"/>
+												</t:template>
+											</t:Column>
+											<t:Column sortProperty="km" width="10%" resizable="false" hAlign="End">
+												<t:label>
+													<Text text="{i18n>km}"/>
+												</t:label>
+												<t:template>
+													<Text text="{expenseModel>km}"/>
+												</t:template>
+											</t:Column>
+										</t:Table>
+									</f:SimpleForm>
+								</IconTabFilter>
+							</items>
+						</IconTabBar>
+					</Panel>
+				</NavContainer>
+			</ScrollContainer>
+		</content>
+		<footer>
+			<Bar>
+				<contentLeft>
+					<!--<Button icon="sap-icon://print" press="onPrintPress" tooltip="{i18n>print}" visible="{enableReportModel>/visiblePrintButton}"/>-->
+				</contentLeft>
+				<contentRight>
+					<Button icon="sap-icon://excel-attachment" press="onDownloadExcelPress" tooltip="{i18n>downloadExcel}"/>
+				</contentRight>
+			</Bar>
+		</footer>
+	</Page>
+</mvc:View>

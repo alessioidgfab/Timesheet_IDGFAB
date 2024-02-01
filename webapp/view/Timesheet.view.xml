@@ -1,0 +1,371 @@
+<mvc:View
+    controllerName="timesheetproject2.controller.Timesheet"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:semantic="sap.f.semantic"
+    xmlns:u="sap.ui.unified"
+    xmlns:footerbar="sap.ushell.ui.footerbar"
+    xmlns:core="sap.ui.core"
+>
+    <Page class="homePage sapUiSizeCozy">
+        <!-- <customHeader>
+            <core:Fragment
+                fragmentName="timesheetproject2.view.fragment.Header"
+                type="XML"
+            />
+        </customHeader> -->
+        <FlexBox
+            width="100%"
+            alignItems="Start"
+            justifyContent="SpaceBetween"
+        >
+            <u:Calendar
+                id="timesheetCalendar"
+                select="onPressSingleDay"
+                startDateChange="_setPage"
+                class="sapUiSmallMarginBegin sapUiTinyMarginTop"
+                showWeekNumbers="false"
+                specialDates="onThisDate"
+            />
+            <!-- <u:CalendarLegend id="timesheetCalendarLegend" standardItems="Today"/> -->
+
+
+            <FlexBox
+                alignItems="End"
+                direction="Column"
+            >
+                <FlexBox
+                    alignItems="Center"
+                    class="sapUiSmallMarginEnd"
+                >
+                    <Label
+                        text="{i18n>progress}"
+                        class="sapUiTinyMarginEnd"
+                    />
+                    <ProgressIndicator
+                        percentValue="{progressIndicatorModel>/percentageReleasableHours}"
+                        displayValue="{progressIndicatorModel>/stringValue}"
+                        showValue="true"
+                        state="{progressIndicatorModel>/status}"
+                        tooltip="{progressIndicatorModel>/tooltip}"
+                        width="10rem"
+                    />
+                </FlexBox>
+                <Button
+                id="BadgedButton"
+                class="sapUiTinyMarginBeginEnd"
+                icon="sap-icon://bell"
+                press="onPressNotification"
+                text="{i18n>acceptedWBS}">
+                <customData>
+                    <BadgeCustomData
+                        key="badge"
+                        value="{legendModel>/calcolo}"
+                        visible="true" />
+                </customData>
+
+            </Button>
+            <Label
+                id="textstopAI"
+                text="STOP AI"
+                width="7rem"
+             
+            >
+                 </Label>
+          
+            <core:Icon
+            id="activities"
+            src="sap-icon://activity-2"
+            press="onpressActivities"
+            size="26px"
+            tooltip="{ColorModel>/acti}"
+            color="{=${ColorModel>/acti} === 'Esiste una Commessa gia accettata' ? 'green' : '#000000'}"
+            width="10rem"/>
+ 
+                <FlexBox
+                    alignItems="End"
+                    justifyContent="End"
+                    direction="Column"
+                    height="350px"
+                >
+                    <FlexBox
+                        alignItems="Center"
+                        class="sapUiSmallMarginEnd"
+                    >
+                        <Label
+                            text="{i18n>viewPartialDays}"
+                            class="sapUiSmallMarginEnd"
+                        />
+                        <Switch
+                            state="{legendModel>/switch}"
+                            customTextOn="{i18n>YES}"
+                            customTextOff="{i18n>NO}"
+                            change="onChangeSwitch"
+                        />
+                    </FlexBox>
+                    <Panel
+                        id="idPanelTable"
+                        class="maxHeight"
+                    >
+                        <Table
+                            visible="{legendModel>/visible}"
+                            items="{path: 'legendModel>/wbs', sorter: {path: 'description'}}"
+                            id="idSchedulazioniTable"
+                            width="70%"
+                            mode="MultiSelect"
+                            selectionChange="onLegendSelect"
+                            includeItemInSelection="false"
+                            class="maringLeftLegendTable sapUiSizeCompact"
+                        >
+                            <columns>
+                                <Column width="65%">
+                                    <Text text="{i18n>project}" />
+                                </Column>
+                                <Column hAlign="End">
+                                    <Text text="{i18n>color}" />
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem selected="{legendModel>select}">
+                                    <cells>
+                                        <Text
+                                            text="{legendModel>description}"
+                                        />
+                                        <core:HTML
+                                            content='&lt;div style=&quot;background-color:{legendModel>color};width:15px;height:15px;margin-left:25px;&quot;&gt;&lt;/div&gt;'
+                                        />
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </Panel>
+                </FlexBox>
+            </FlexBox>
+        </FlexBox>
+        <Panel>
+            <Table
+                id="idTable"
+                items="{tableModel>/workList}"
+                includeItemInSelection="false"
+                mode="MultiSelect"
+                class="sapUiSizeCompact"
+            >
+                <headerToolbar>
+                    <Toolbar>
+                        <!-- <Title
+                        id="dataSel"
+                            text="{i18n>listOfTheDay} {tableModel>/selectedDay} - {i18n>reportedHours} {tableModel>/totalWorkHoursInDay}"
+                            level="H2"
+                        /> -->
+                        <Title
+                        id="dataSel"
+                            text="{i18n>listOfTheDay} {tableModel>/selectedDay}"
+                            level="H2"
+                        />
+                    </Toolbar>
+                </headerToolbar>
+                <columns>
+                    <Column hAlign="Center">
+                        <Text text="{i18n>workPackage}" />
+                    </Column>
+                    <Column
+                        hAlign="Center"
+                      width="20rem"
+                    >
+                        <!-- <Text text="{i18n>workLocDescription} \n {i18n>office}"/> -->
+                        <Text text="{i18n>workLocDescription}" />
+                    </Column>
+                    <Column
+                        hAlign="Center"
+                       
+                    >
+                        <Text text="{i18n>overtime}" />
+                    </Column>
+                    <Column
+                        hAlign="Center"
+                    
+                    >
+                        <Text text="{i18n>hoursWorked}" />
+                    </Column>
+                    <Column
+                        hAlign="Center"
+                      
+                    >
+                        <Text text="{i18n>nb}" />
+                    </Column>
+                    <Column
+                        hAlign="Center"
+                       
+                    >
+                        <Text text="{i18n>notes}" />
+                    </Column>
+                    <Column
+                        hAlign="Center"
+                      
+                    >
+                        <Text text="{i18n>expense}" />
+                    </Column>
+                    <Column
+                        hAlign="Center"
+                       
+                    >
+                        <Text text="{i18n>status}" />
+                    </Column>
+                    <Column
+                        hAlign="Center"
+                        
+                    />
+                </columns>
+                <items>
+                    <ColumnListItem
+                        type="Active"
+                        selected="{tableModel>selected}"
+                    >
+                        <cells>
+                            <VBox>
+                                <ObjectStatus
+                                    text="{tableModel>WBS}"
+                                    state="{= ${tableModel>statusId} === '1' ? 'Error' : 'None'}"
+                                />
+                                <!-- <ObjectStatus
+                                    text="{tableModel>descriptionWbs}"
+                                    state="{= ${tableModel>statusId} === '1' ? 'Error' : 'None'}"
+                                /> -->
+                            </VBox>
+                            <VBox>
+                                <ObjectStatus
+                                    text="{tableModel>workLocDescription}"
+                                    state="{= ${tableModel>statusId} === '1' ? 'Error' : 'None'}"
+                                />
+                            </VBox>
+                            <ObjectStatus id="testId"
+                                text="{=${tableModel>overTime} > 0 ? ${tableModel>overTime}  : '0' }"/>
+                            <ObjectStatus
+                                text="{tableModel>workHours} {tableModel>workHoursUM}"
+                                state="{= ${tableModel>statusId} === '1' ? 'Error' : 'None'}"
+                            />
+                            <CheckBox
+                                selected="{= ${tableModel>faturazioneFlag} ? true : false}"
+                                editable="false"
+                            />
+                            <core:Icon
+                                src="sap-icon://notes"
+                                press="onPressNoteIcon"
+                                size="26px"
+                                tooltip="{tableModel>notes}"
+                                visible="{= ${tableModel>notes} ? true : false}"
+                            />
+                            <core:Icon
+                                src="sap-icon://money-bills"
+                                press="onPressExpense"
+                                color="{=${tableModel>expenses} === 1 ? 'green' : '#000000'}"
+                                size="26px"
+                                tooltip="{= !${tableModel>expenses}   ? ${i18n>speseAssenti} : ${i18n>spesePresenti}}"
+                            >
+                                <core:layoutData>
+                                    <FlexItemData growFactor="1" />
+                                </core:layoutData>
+                            </core:Icon>
+                            <!-- <ObjectStatus
+                                text="{tableModel>statusId}"
+                                state="{= ${tableModel>statusId} === '1' ? 'Error' : 'None'}"
+                            /> -->
+                                <ObjectStatus
+                                text="{path:'tableModel>statusId', formatter:'formatter.stato'}"
+                                state="{= ${tableModel>statusId} === 'Aperto' ? 'Success' : ${tableModel>statusId} === 'Chiuso' ?  'Warning' : 'Error'}"
+                                icon="{= ${tableModel>statusId} === 'Aperto' ? 'sap-icon://sys-enter-2' : ${tableModel>statusId} === 'Chiuso' ? 'sap-icon://alert' : 'sap-icon://error'}"
+                            />
+                                  <Button type="Transparent"
+                                text="Edit"
+                                press="onPressTs"
+                                ariaDescribedBy="editButtonLabel"
+                                icon="sap-icon://edit" />
+                            <core:Icon
+                                src="{= ${tableModel>statusId} === '10' ? 'sap-icon://unlocked' : (${tableModel>statusId} === '30' &amp;&amp; ${userModel>/workingInAdmin}) ? 'sap-icon://locked' : ${tableModel>statusId} === '40' ? 'sap-icon://decline' : ''}"
+                                press="onIconPress"
+                                color="{= ${tableModel>statusId} === '40' ? 'red' : 'green'}"
+                                size="26px"
+                                tooltip="{= ${tableModel>statusId} === '10' ? ${i18n>release} : ${tableModel>statusId} === '30' ? ${i18n>unapprove} : ${tableModel>statusId} === '40' ? ${tableModel>rejectionReason} : ''}"
+                                visible="{=
+								(${tableModel>statusId} === '1' &amp;&amp; ((${tableModel>absenceCode} &amp;&amp; ${periodsModel>/absence}) || !${tableModel>absenceCode} &amp;&amp; ${periodsModel>/activity})) ||
+								(${tableModel>statusId} === '3' &amp;&amp; ${userModel>/workingInAdmin}) ||
+								(${tableModel>statusId} === '2') ? true : false}"
+                            >
+                                <core:layoutData>
+                                    <FlexItemData growFactor="1" />
+                                </core:layoutData>
+                            </core:Icon>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </Panel>
+        <footer>
+            <Bar>
+                <contentLeft>
+                
+                    <Button
+                        icon="sap-icon://visits"
+                        text="{i18n>changeUser}"
+                        press="_changeUser"
+                        visible="false"
+                        width="10rem"
+                        
+                    />
+                    <Button
+                        icon="sap-icon://locked"
+                        text="{i18n>release}"
+                        press="onReleaseAllPress"
+                        type="Emphasized"
+                        id="release"
+                        visible="false"
+                        width="10rem"
+                        
+                    />
+                    <Button
+                        icon="sap-icon://duplicate"
+                        text="{i18n>duplicate}"
+                        visible="true"
+                        press="onDuplicateTimesheetPress"
+                        id="duplicate"
+                        width="10rem"
+                    />
+                    <Button
+                        icon="sap-icon://delete"
+                        text="{i18n>delete}"
+                        visible="true"
+                        type="Reject"
+                        press="onDeleteTimesheetPress"
+                        id="delete"
+                        width="10rem"
+                    />
+                </contentLeft>
+                <contentRight>
+                    <Button
+                    icon="sap-icon://action"
+                    text="{i18n>changeActivities}"
+                    press="AddActivities"
+                    visible="false"
+                    width="10rem"
+                />
+                    <Button
+                        icon="sap-icon://add"
+                        text="{i18n>add}"
+                        visible="false"
+                        id="add"
+                        press="onAddTimesheetPress"
+                        width="10rem"
+                    />
+                    <Button
+                        icon="sap-icon://manager-insight"
+                        text="{i18n>report}"
+                        visible="true"
+                        press="onReportPress"
+                        width="10rem"
+                        id="report"
+                    />
+                </contentRight>
+            </Bar>
+        </footer>
+    </Page>
+</mvc:View>

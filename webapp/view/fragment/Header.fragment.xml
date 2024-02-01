@@ -1,0 +1,13 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:c="sap.ui.commons" xmlns:mvc="sap.ui.core.mvc" xmlns:control="control">
+	<Bar>
+		<contentMiddle>
+			<Text
+				text="{= ${userModel>/userDetail/nome} &amp;&amp; ${userModel>/userDetail/cognome} ? ${userModel>/userDetail/cognome} + ' ' + ${userModel>/userDetail/nome} + ' (' + ${userModel>/userDetail/externalId} + ')' : ${userModel>/userDetail/externalId}}"
+				class="sapUiSmallmarginTop headerTextClass"/>
+		</contentMiddle>
+		<contentRight>
+			<!-- <Image src="../backoffice/img/indigate_logo_web.png" width="100px" visible="{=!${device>/isPhone}}"/> -->
+			<!-- <Button icon="sap-icon://log" iconDensityAware="false" press="onLogout" /> -->
+		</contentRight>
+	</Bar>
+</core:FragmentDefinition>

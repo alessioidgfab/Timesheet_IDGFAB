@@ -1,0 +1,33 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:c="sap.ui.commons" xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form" xmlns:u="sap.ui.unified" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:app="http://www.w3.org/1999/xhtml">
+	<Dialog title="{i18n>selectPeriod}">
+		<!-- <DatePicker dateValue="{activityModel>/fromDate}" width="10rem" class="sapUiTinyMarginBegin"/>
+		<Label text="-" class="sapUiTinyMarginBegin sapUiTinyMarginEnd"/>
+		<DatePicker dateValue="{activityModel>/toDate}" displayFormat="dd/MM/yyyy" width="10rem" class="sapUiTinyMarginEnd"/>
+		<buttons>
+			<Button text="{i18n>OK}" press="onOkChangePeriodDialogPress"
+				enabled="{= ${activityModel>/fromDate} &amp;&amp; ${activityModel>/toDate} ? true : false}" width="5rem"/>
+			<Button text="{i18n>CLOSE}" press="onCloseChangePeriodDialogPress" width="5rem"/>
+		</buttons> -->
+		<DatePicker id="firstDay" dateValue="{activityModel>/fromDate}" width="10rem" displayFormat="yyyy/MM/dd" class="sapUiTinyMarginBegin"/>
+		<Label text="-" class="sapUiTinyMarginBegin sapUiTinyMarginEnd"/>
+		<DatePicker id="endDay" dateValue="{activityModel>/toDate}" displayFormat="yyyy/MM/dd" width="10rem" class="sapUiTinyMarginEnd"/>
+			<!-- <Label text="A"></Label>
+			<ComboBox
+                                            id="wbsCombo"
+											name="WBS"
+											selectionChange=".onSelectionChange"
+											items="{
+												path: 'wbsCombo>/wbs',
+												templateShareable: true
+											}"
+										>
+											<core:Item key="{wbsCombo>ID}" text="{wbsCombo>Descrizione}"/>
+										</ComboBox> -->
+		<buttons>
+			<Button text="{i18n>OK}" press="onOkChangePeriodDialogPress"
+				enabled="{= ${activityModel>/fromDate} &amp;&amp; ${activityModel>/toDate} ? true : false}" width="5rem"/>
+			<Button text="{i18n>CLOSE}" press="onCloseChangePeriodDialogPress" width="5rem"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

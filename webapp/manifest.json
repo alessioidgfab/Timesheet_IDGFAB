@@ -1,0 +1,248 @@
+{
+    "_version": "1.49.0",
+    "sap.app": {
+        "id": "timesheetproject2",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "0.0.1"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "resources": "resources.json",
+        "sourceTemplate": {
+            "id": "@sap/generator-fiori:basic",
+            "version": "1.10.5",
+            "toolsId": "1a5037e7-3286-4c88-beb1-d48d3cc87871"
+        },
+        "dataSources": {
+            "mainService": {
+                "uri": "/CatalogService/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [],
+                    "localUri": "localService/metadata.xml",
+                    "odataVersion": "4.0"
+                }
+            }
+        },
+        "crossNavigation": {
+            "inbounds": {
+                "Timesheet-display": {
+                    "semanticObject": "Timesheet",
+                    "action": "display",
+                    "title": "Timesheet",
+                    "subTitle": "",
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    }
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "fullWidth": true,
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "flexEnabled": false,
+        "dependencies": {
+            "minUI5Version": "1.117.1",
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {},
+                "sap.f": {},
+                "sap.suite.ui.generic.template": {},
+                "sap.ui.comp": {},
+                "sap.ui.generic.app": {},
+                "sap.ui.table": {},
+                "sap.ushell": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "timesheetproject2.i18n.i18n"
+                }
+            },
+            "": {
+                "dataSource": "mainService",
+                "preload": true,
+                "settings": {
+                    "synchronizationMode": "None",
+                    "operationMode": "Server",
+                    "autoExpandSelect": true,
+                    "earlyRequests": true
+                }
+            }
+        },
+        "resources": {
+            "css": [
+                {
+                    "uri": "css/calendar.css"
+                },
+                {
+                    "uri": "css/style.css"
+                }
+            ],
+            "js": [
+                {
+                    "uri": "libs/lodash.js"
+                },
+                {
+                    "uri": "libs/sjcl.js"
+                },
+                {
+                    "uri": "libs/xml2json.js"
+                },
+                {
+                    "uri": "libs/xlsx-populate.js"
+                }
+            ]
+        },
+        "routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "viewType": "XML",
+                "async": true,
+                "viewPath": "timesheetproject2.view",
+                "controlAggregation": "pages",
+                "controlId": "app",
+                "clearControlAggregation": false
+            },
+            "routes": [
+                {
+                    "name": "Timesheet",
+                    "pattern": "",
+                    "target": [
+                        "timesheet"
+                    ]
+                },
+                {
+                    "pattern": "Detail/{entity}",
+                    "name": "detail",
+                    "target": [
+                        "detail"
+                    ]
+                },
+                {
+                    "pattern": "expense/{date}/{wbsId}",
+                    "name": "expense",
+                    "target": [
+                        "expense"
+                    ]
+                },
+                {
+                    "pattern": "report",
+                    "name": "report",
+                    "target": [
+                        "report"
+                    ]
+                },
+                {
+                    "pattern": "TestActivities",
+                    "name": "TestActivities",
+                    "target": [
+                        "TestActivities"
+                    ]
+                },
+                {
+                    "pattern": "TimeSheetEntryCollection/{objectId}",
+                    "name": "object",
+                    "target": [
+                        "object"
+                    ]
+                },
+                {
+                    "pattern": "AddActivities",
+                    "name": "AddActivities",
+                    "target": [
+                        "AddActivities"
+                    ]
+                }
+            ],
+            "targets": {
+                "timesheet": {
+                    "viewName": "Timesheet",
+                    "viewId": "Timesheet",
+                    "viewLevel": 1,
+                    "title": "{i18n>timesheetViewTitle}"
+                },
+                "TestActivities": {
+                    "viewName": "TestActivities",
+                    "viewId": "TestActivities",
+                    "viewLevel": 1,
+                    "title": "{i18n>activitiesViewTitle}"
+                },
+                "detail": {
+                    "viewName": "Detail",
+                    "viewId": "detail",
+                    "viewLevel": 1,
+                    "title": "{i18n>detailViewTitle}"
+                },
+                "expense": {
+                    "viewName": "Expense",
+                    "viewId": "expense",
+                    "viewLevel": 1,
+                    "title": "{i18n>expenseViewTitle}"
+                },
+                "report": {
+                    "viewName": "Report",
+                    "viewId": "report",
+                    "viewLevel": 1,
+                    "title": "{i18n>reportViewTitle}"
+                },
+                "AddActivities": {
+                    "viewName": "AddActivities",
+                    "viewId": "AddActivities",
+                    "viewLevel": 1,
+                    "title": "{i18n>AddActivitiesViewTitle}"
+                },
+               
+                "object": {
+                    "viewName": "Object",
+                    "viewId": "object",
+                    "viewLevel": 2,
+                    "title": "{i18n>objectViewTitle}"
+                },
+                "objectNotFound": {
+                    "viewName": "ObjectNotFound",
+                    "viewId": "objectNotFound"
+                },
+                "notFound": {
+                    "viewName": "NotFound",
+                    "viewId": "notFound"
+                }
+            }
+        },
+        "rootView": {
+            "viewName": "timesheetproject2.view.App",
+            "type": "XML",
+            "async": true,
+            "id": "App"
+        }
+    },
+    "sap.cloud": {
+        "public": true,
+        "service": "timesheetproject2"
+    }
+}

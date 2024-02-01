@@ -1,0 +1,5 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Popover title="{workDate} - {descriptionWbs}" class="sapUiContentPadding" placement="Left" >
+		<TextArea value="{rejectionReason}" enabled="false" rows="{= ${rejectionReason}.length > 40 ? 3 : 2}" />
+	</Popover>
+</core:FragmentDefinition>

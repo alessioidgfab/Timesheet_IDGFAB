@@ -1,0 +1,133 @@
+[id*="Calendar"].sapUiCal:not(.sapUiCalInt) {
+  min-width: 45rem !important;
+}
+
+[id*="Calendar"].sapUiCalHeadB.sapUiCalHeadB1,
+[id*="Calendar"].sapUiCalHeadB.sapUiCalHeadB2 {
+  font-size: 18px;
+}
+
+
+/* pannello mesi e anni */
+
+/* .sapUiSizeCompact .sapUiCalContent>.sapUiCalMonthPicker,
+.sapUiSizeCompact .sapUiCalContent>.sapUiCalYearPicker {
+    margin-left: 22rem !important;
+} */
+
+.sapUiSizeCompact .sapUiCalContent>.sapUiCalMonthPicker, .sapUiSizeCompact .sapUiCalContent>.sapUiCalYearPicker {
+  top: 0;
+  width: 100%;
+}
+
+
+/* colore riquadro del giorno corrente */
+
+[id*="Calendar"].sapUiCalDayToday>.sapUiCalDayNum {
+  border: 0.125rem solid #ab218e;
+}
+
+
+/* regole per nascondere i giorni dei mesi vecchi nei calendari */
+
+[id*="Calendar"].sapUiCalItemOtherMonth {
+  visibility: hidden;
+}
+
+
+/* colore dei giorni festivi */
+
+.sapUiCalItemWeekEnd {
+  background-color: #c0c0c0;
+}
+
+
+/* CALENDARIO NOTA SPESE */
+
+[id*="idExpenseCalendar"].sapUiCalRowWeekNumbers {
+  visibility: hidden !important;
+}
+
+.sapUiCalRowWeekNumbers {
+  height: 0.1rem !important;
+}
+
+.redBorder {
+  border: 2px solid red;
+}
+
+
+
+
+/* Red background for Type01 */
+.sapUiCalItemType01 {
+  background-color:yellow !important;
+}
+
+/* Blue background for Type02 */
+.sapUiCalItemType02 {
+  background-color: blue !important;
+}
+
+
+.sapUiCalItemType01>.sapUiCalSpecialDate{
+  background-color: transparent !important;
+}
+
+.sapUiCalItemType02>.sapUiCalSpecialDate{
+  background-color: transparent !important;
+}
+.sapUiCalItemType03>.sapUiCalSpecialDate{
+  background-color: transparent !important;
+}
+
+
+/* Style for login input fields */
+/* .loginInput {
+  margin: 10px;
+  width: 100%;
+}
+
+/* Style for the login button */
+/* .loginButton {
+  margin-top: 20px;
+   color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
+} */ 
+
+/* Hover effect for the login button */
+/* .loginButton:hover {
+  background-color: #0056b3;
+} */
+
+.customVBox {
+  margin-top: 100px; /* Adjust the margin values as needed */
+}
+.customVBoxMaster {
+  margin-top: 200px; /* Adjust the margin values as needed */
+}
+.logginPage {
+  background-color: white !important;
+}
+
+.emailClass{
+  text-align: left !important;
+}
+.passClass{
+  text-align: left !important;
+}
+
+
+/* Style for NonWorkingDate */
+/* .sapUiCalSpecialDate-NonWorkingDate {
+  background-color: #f2f2f2 !important; /* Change the background color for non-working dates */
+  /* color: #999 !important; Change the font color for non-working dates */
+/* } */
+
+
+/* .myCustomDateCell {
+  background-color: #FFCC33; Customize the background color as needed */
+/* } */ 

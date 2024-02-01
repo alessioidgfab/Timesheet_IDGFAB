@@ -1,0 +1,30 @@
+<!-- <c:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:c="sap.ui.core"
+>
+</c:FragmentDefinition> -->
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:c="sap.ui.commons" xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form" xmlns:u="sap.ui.unified" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:app="http://www.w3.org/1999/xhtml">
+	<Dialog title="{i18n>changeStatus}" afterOpen="_removeFocus">
+		<FlexBox justifyContent="Center" class="sapUiMediumMargin">
+			<Text
+			id="idStopped"
+				maxLines=""
+				renderWhitespace="false"
+				text="{i18n>stopWBS}  {commessaModel>/Commessa}" 
+				textAlign="Begin"
+				textDirection="Inherit"
+				width=""
+				wrapping="true"
+				wrappingType="Normal"
+			>
+				
+			</Text>
+		</FlexBox>
+		<buttons>
+			<Button text="{i18n>Stopcommessa}" press="StopWBS"/>
+            <Button text="{i18n>Cancel}" press="onPressAnnula"/>
+            
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,9 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Dialog resizable="false" title="{i18n>chooseTimesheet}" afterOpen="onAfterOpenDialogChooseTimesheet" contentHeight="50%" >
+    	<NavContainer id="idNavContainerDialogChooseTimesheeet" width="100%" class="navContainerControl sapUiSmallMarginBottom" />
+        <buttons>
+            <Button text="{i18n>confirm}" press="onPressConfirmChooseTimesheet" visible="{ui>/confirmButtonChooseTimesheet}" />
+            <Button text="{i18n>next}" press="onPressNextPage" visible="{ui>/nextButtonChooseTimesheet}" />
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>
